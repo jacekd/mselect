@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>jquery-multiselect demo</title>
+    <script type="text/javascript" src="jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="jquery.multiselect.js"></script>
+    <link rel="stylesheet" href="jquery.multiselect.css" type="text/css" />
+  </head>
+  <body>
+    <div id='multi-select-1'>
+      <select>
+        <option>huge</option>
+        <option>medium</option>
+        <option>small</option>
+      </select>
+      <select></select>
+    </div>
+
+    <script type="text/javascript">
+      $(function() { $('#multi-select-1').multiselect({autoSize: true}); });
+    </script>
+  </body>
+</html>
