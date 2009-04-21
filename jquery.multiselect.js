@@ -6,11 +6,11 @@
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  */
-;(function($) {
+(function($) {
   function reorder(target) {
     options = $('option', target);
     sorted = options.sort(function(a,b) {
-     return (a.value == b.value ? 0 : (a.value < b.value ? -1 : 1))
+      return (a.innerHTML == b.innerHTML ? 0 : (a.innerHTML < b.innerHTML ? -1 : 1));
     })
     target.html(sorted);
   };
@@ -27,12 +27,13 @@
     }, options);
     this.each(function(i) {
       var obj = $(this);
-      var selects = $('select:nth-child(n < 2)', obj);
+      var selects = obj.children('select:lt(2)');
       if (selects.length < 2) {
-        console.log('Not enough select boxes in '+this.id);
+        //console.log('Not enough select boxes in '+this.id);
         return;
       }
-      selects.attr('multiple', 'true');
+      selects.attr('multiple', true);
+
       var container = $('<div></div>');
       container.addClass(settings.containerClass);
       selects.wrap(container);
@@ -54,11 +55,13 @@
       left_button.click(moveRight); left.dblclick(moveRight);
       left.parent().append('<br/>');
       left.parent().append(left_button);
+      if (settings.autoSort) reorder(left);
 
-      var right_button = $('<input type="button" value="Remove &laquo;" />');
+      var right_button = $('<input type="button" value="&laquo; Remove" />');
       right_button.click(moveLeft); right.dblclick(moveLeft);
       right.parent().append('<br/>');
       right.parent().append(right_button);
+      if (settings.autoSort) reorder(right);
 
       if (settings.autoSize) {
         w = ((x = left.width())  > (y = right.width())  ? x : y);

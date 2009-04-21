@@ -7,16 +7,15 @@
   </head>
   <body>
     <div id='multi-select-1'>
-      <select>
+      <select multiple='multiple'>
         <option>huge</option>
         <option>medium</option>
         <option>small</option>
       </select>
-      <select></select>
+      <select multiple='multiple'></select>
     </div>
-
     <script type="text/javascript">
-      $(function() { $('#multi-select-1').multiselect({autoSize: true}); });
+      $(function() { $('#multi-select-1').multiselect(); });
     </script>
   </body>
 </html>

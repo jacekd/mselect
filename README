@@ -1,0 +1,15 @@
+.---------------------------.
+| jQuery multiselect plugin |
+`---------------------------'
+
+
+Usage
+=====
+
+See demo.html
+
+Notes
+=====
+
+For portability, set the multiple attribute in your select boxes in the
+HTML source (IE6 is stupid).
