@@ -68,6 +68,7 @@
         h = ((x = left.height()) > (y = right.height()) ? x : y);
         selects.width(w+10); selects.height(h+10);
       }
+      obj.append('<br style="clear:both;"/>');
     })
   };
 })(jQuery);

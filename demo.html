@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="jquery.multiselect.css" type="text/css" />
   </head>
   <body>
+    <h3>Select sizes:</h3>
     <div id='multi-select-1'>
       <select multiple='multiple'>
         <option>huge</option>
@@ -14,8 +15,22 @@
       </select>
       <select multiple='multiple'></select>
     </div>
+
+    <h3>Select pants:</h3>
+    <div id='multi-select-2'>
+      <select multiple='multiple'>
+        <option>jeans</option>
+        <option>khakis</option>
+        <option>trunks</option>
+      </select>
+      <select multiple='multiple'></select>
+    </div>
+
     <script type="text/javascript">
-      $(function() { $('#multi-select-1').multiselect(); });
+      $(function() {
+        $('#multi-select-1').multiselect({autoSize: true});
+        $('#multi-select-2').multiselect();
+      });
     </script>
   </body>
 </html>
