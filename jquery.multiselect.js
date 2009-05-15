@@ -69,6 +69,9 @@
         selects.width(w+10); selects.height(h+10);
       }
       obj.append('<br style="clear:both;"/>');
+      obj.parent('form').submit(function() {
+        $('option', right).attr('selected', true);
+      })
     })
   };
 })(jQuery);
