@@ -3,29 +3,63 @@
     <title>jquery-multiselect demo</title>
     <script type="text/javascript" src="jquery-1.3.2.js"></script>
     <script type="text/javascript" src="jquery.multiselect.js"></script>
-    <link rel="stylesheet" href="jquery.multiselect.css" type="text/css" />
+    <style type="text/css">
+      #multi-select-1 div {
+        float: left;
+        margin-right: 1em;
+      }
+      #multi-select-2 select {
+        width: 10em;
+        height: 10em;
+      }
+      p { clear: both; }
+    </style>
   </head>
   <body>
     <form>
-      <h3>Select sizes:</h3>
-      <div id='multi-select-1'>
-        <select multiple='multiple'>
-          <option>huge</option>
-          <option>medium</option>
-          <option>small</option>
-        </select>
-        <select multiple='multiple'></select>
-      </div>
+      <p>
+        <h3>Select sizes:</h3>
+        <div id='multi-select-1'>
+          <div>
+            <select multiple='multiple'>
+              <option>huge</option>
+              <option>medium</option>
+              <option>small</option>
+            </select><br/>
+            <input type="button" value="Add &raquo;"/>
+          </div>
+          <div>
+            <select multiple='multiple'></select><br/>
+            <input type="button" value="&laquo; Remove"/>
+          </div>
+        </div>
+      </p>
 
-      <h3>Select pants:</h3>
-      <div id='multi-select-2'>
-        <select multiple='multiple'>
-          <option>jeans</option>
-          <option>khakis</option>
-          <option>trunks</option>
-        </select>
-        <select multiple='multiple'></select>
-      </div>
+      <p>
+        <h3>Select pants:</h3>
+        <table id='multi-select-2'>
+          <tr>
+            <td>
+              <select multiple='multiple'>
+                <option>jeans</option>
+                <option>khakis</option>
+                <option>trunks</option>
+              </select>
+            </td>
+            <td>
+              <select multiple='multiple'></select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="button" value="Add &raquo;"/>
+            </td>
+            <td>
+              <input type="button" value="&laquo; Remove"/>
+            </td>
+          </tr>
+        </table>
+      </p>
       <p>
         <input type="submit" value="Submit" />
       </p>

@@ -20,55 +20,51 @@
   };
 
   $.fn.multiselect = function(options) {
-    var settings = $.extend({
-      autoSize: false,
-      autoSort: true,
-      containerClass: 'multiselect-container'
-    }, options);
+    var settings = $.extend({ autoSort: true, autoSize: false }, options);
     this.each(function(i) {
       var obj = $(this);
-      var selects = obj.children('select:lt(2)');
+
+      // grab selects
+      var selects = obj.find('select');
       if (selects.length < 2) {
+        //console.log(selects);
         //console.log('Not enough select boxes in '+this.id);
         return;
       }
       selects.attr('multiple', true);
 
-      var container = $('<div></div>');
-      container.addClass(settings.containerClass);
-      selects.wrap(container);
+      // grab buttons
+      var buttons = obj.find('input:button');
+      if (buttons.length < 2) {
+        //console.log('Not enough buttons in '+this.id);
+        return;
+      }
 
-      // add buttons
-      var left = selects.eq(0);
-      var right = selects.eq(1);
+      // hook stuff up
+      var left         = selects.eq(0);
+      var right        = selects.eq(1);
+      var left_button  = buttons.eq(0);
+      var right_button = buttons.eq(1);
 
       var moveRight = function() {
         moveSelected(left, right);
         if (settings.autoSort) reorder(right);
       }
+      left_button.click(moveRight);
+      left.dblclick(moveRight);
+
       var moveLeft = function() {
         moveSelected(right, left);
         if (settings.autoSort) reorder(left);
       }
-
-      var left_button = $('<input type="button" value="Add &raquo;" />');
-      left_button.click(moveRight); left.dblclick(moveRight);
-      left.parent().append('<br/>');
-      left.parent().append(left_button);
-      if (settings.autoSort) reorder(left);
-
-      var right_button = $('<input type="button" value="&laquo; Remove" />');
-      right_button.click(moveLeft); right.dblclick(moveLeft);
-      right.parent().append('<br/>');
-      right.parent().append(right_button);
-      if (settings.autoSort) reorder(right);
+      right_button.click(moveLeft);
+      right.dblclick(moveLeft);
 
       if (settings.autoSize) {
         w = ((x = left.width())  > (y = right.width())  ? x : y);
         h = ((x = left.height()) > (y = right.height()) ? x : y);
         selects.width(w+10); selects.height(h+10);
       }
-      obj.append('<br style="clear:both;"/>');
       obj.parent('form').submit(function() {
         $('option', right).attr('selected', true);
       })
