@@ -7,11 +7,22 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 (function($) {
-  function reorder(target) {
-    options = $('option', target);
-    sorted = options.sort(function(a,b) {
-      return (a.innerHTML == b.innerHTML ? 0 : (a.innerHTML < b.innerHTML ? -1 : 1));
-    })
+  function cmp(a, b) {
+    return (a == b ? 0 : (a < b ? -1 : 1));
+  }
+
+  function reorder(target, option) {
+    objects = $('option', target);
+    if ($.isArray(option)) {
+      sorted = objects.sort(function(a, b) {
+        return cmp(option.indexOf(a.innerHTML), option.indexOf(b.innerHTML));
+      });
+    }
+    else {
+      sorted = objects.sort(function(a, b) {
+        return cmp(a.innerHTML, b.innerHTML);
+      });
+    }
     target.html(sorted);
   };
 
@@ -20,7 +31,8 @@
   };
 
   $.fn.multiselect = function(options) {
-    var settings = $.extend({ autoSort: true, autoSize: false }, options);
+    var settings = $.extend({ sort: true, autoSize: false }, options);
+
     this.each(function(i) {
       var obj = $(this);
 
@@ -48,17 +60,22 @@
 
       var moveRight = function() {
         moveSelected(left, right);
-        if (settings.autoSort) reorder(right);
+        if (settings.sort) reorder(right, settings.sort);
       }
       left_button.click(moveRight);
       left.dblclick(moveRight);
 
       var moveLeft = function() {
         moveSelected(right, left);
-        if (settings.autoSort) reorder(left);
+        if (settings.sort) reorder(left, settings.sort);
       }
       right_button.click(moveLeft);
       right.dblclick(moveLeft);
+
+      if (settings.sort) {
+        reorder(left, settings.sort);
+        reorder(right, settings.sort);
+      }
 
       if (settings.autoSize) {
         w = ((x = left.width())  > (y = right.width())  ? x : y);
