@@ -12,7 +12,7 @@
   }
 
   function reorder(target, option) {
-    objects = $('option', target);
+    objects = target.find('option');
     if ($.isArray(option)) {
       sorted = objects.sort(function(a, b) {
         return cmp(option.indexOf(a.innerHTML), option.indexOf(b.innerHTML));
@@ -82,8 +82,8 @@
         h = ((x = left.height()) > (y = right.height()) ? x : y);
         selects.width(w+10); selects.height(h+10);
       }
-      obj.parent('form').submit(function() {
-        $('option', right).attr('selected', true);
+      obj.parents('form').submit(function() {
+        right.find('option').attr('selected', true);
       })
     })
   };

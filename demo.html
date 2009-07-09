@@ -13,6 +13,13 @@
         width: 10em;
         height: 10em;
       }
+
+      /* miscellaneous css */
+      body { font-family: Verdana, Arial; }
+      #results { display: none; position: absolute; border: 2px solid lightblue; width: 20em; height: 15em; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+      #results h3 { margin: 0; padding: 0; background-color: lightblue; text-align: center; }
+      ul { margin: 0.5em; padding: 0; list-style-type: none; }
+      li { padding: 0.3em; margin: 0.3em; width: 8em; background-color: #ddd; border: 1px solid #888; float: left; white-space: nowrap; text-align: center; }
       p { clear: both; }
     </style>
   </head>
@@ -30,7 +37,7 @@
             <input type="button" value="Add &raquo;"/>
           </div>
           <div>
-            <select multiple='multiple'></select><br/>
+            <select multiple='multiple' name='size'></select><br/>
             <input type="button" value="&laquo; Remove"/>
           </div>
         </div>
@@ -48,7 +55,7 @@
               </select>
             </td>
             <td>
-              <select multiple='multiple'></select>
+              <select multiple='multiple' name='pants'></select>
             </td>
           </tr>
           <tr>
@@ -73,7 +80,7 @@
             <input type="button" value="Add &raquo;"/>
           </div>
           <div>
-            <select multiple='multiple'></select><br/>
+            <select multiple='multiple' name='number'></select><br/>
             <input type="button" value="&laquo; Remove"/>
           </div>
         </div>
@@ -83,11 +90,20 @@
       </p>
     </form>
 
+    <div id="results" style="display: none">
+      <h3>Results</h3>
+      <ul></ul>
+      <br style="clear: both" />
+    </div>
+
     <script type="text/javascript">
       $(function() {
         $('#multi-select-1').multiselect({autoSize: true});
         $('#multi-select-2').multiselect();
         $('#multi-select-3').multiselect({autoSize: true, sort: ['uno', 'dos', 'tres']});
+
+        /* show results on submit */
+        doc = $(document); wnd = $(window); $('form').submit(function(e) { results = $('#results'); list = results.find('ul').html(''); $.each($(this).serializeArray(), function() { list.append("<li>"+this.name+": "+this.value+"</li>"); }); results.css({ top: doc.scrollTop() + ((wnd.height() - results.height()) / 2), left: doc.scrollLeft() + ((wnd.width() - results.width()) / 2) }); results.fadeIn('fast', function() { setTimeout('results.fadeOut("fast");', 5000); }); return false; })
       });
     </script>
   </body>
