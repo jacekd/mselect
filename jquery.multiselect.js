@@ -30,8 +30,14 @@
     to.append(from.children('option:selected').remove());
   };
 
+  function moveAll(from, to) {
+    to.append(from.children().remove());
+  }
+
   $.fn.multiselect = function(options) {
-    var settings = $.extend({ sort: true, autoSize: false }, options);
+    var settings = $.extend({
+      sort: true, autoSize: false
+    }, options);
 
     this.each(function(i) {
       var obj = $(this);
@@ -52,18 +58,38 @@
         return;
       }
 
-      // hook stuff up
-      var left         = selects.eq(0);
-      var right        = selects.eq(1);
-      var left_button  = buttons.eq(0);
-      var right_button = buttons.eq(1);
+      var left  = selects.eq(0);
+      var right = selects.eq(1);
 
-      var moveRight = function() {
+      if (buttons.length == 4) {
+        // assume there are 'all buttons'
+        var left_button      = buttons.eq(0);
+        var left_all_button  = buttons.eq(1);
+        var right_button     = buttons.eq(2);
+        var right_all_button = buttons.eq(3);
+      }
+      else {
+        var left_button      = buttons.eq(0);
+        var left_all_button  = null;
+        var right_button     = buttons.eq(1);
+        var right_all_button = null;
+      }
+      console.log(left_all_button);
+      console.log(right_all_button);
+
+      // hook stuff up
+      var moveSelectedRight = function() {
         moveSelected(left, right);
         if (settings.sort) reorder(right, settings.sort);
       }
-      left_button.click(moveRight);
-      left.dblclick(moveRight);
+      left_button.click(moveSelectedRight);
+      left.dblclick(moveSelectedRight);
+      if (left_all_button) {
+        left_all_button.click(function() {
+          moveAll(left, right);
+          if (settings.sort) reorder(right, settings.sort);
+        });
+      }
 
       var moveLeft = function() {
         moveSelected(right, left);
@@ -71,6 +97,12 @@
       }
       right_button.click(moveLeft);
       right.dblclick(moveLeft);
+      if (right_all_button) {
+        right_all_button.click(function() {
+          moveAll(right, left);
+          if (settings.sort) reorder(left, settings.sort);
+        });
+      }
 
       if (settings.sort) {
         reorder(left, settings.sort);

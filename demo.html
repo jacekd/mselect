@@ -9,8 +9,8 @@
         margin-right: 1em;
         padding-bottom: 1em;
       }
-      #multi-select-2 select {
-        width: 10em;
+      .manual-size select {
+        width: 15em;
         height: 10em;
       }
 
@@ -45,7 +45,7 @@
 
       <p>
         <h3>Sized with CSS:</h3>
-        <table id='multi-select-2'>
+        <table id='multi-select-2' class="manual-size">
           <tr>
             <td>
               <select multiple='multiple'>
@@ -68,6 +68,7 @@
           </tr>
         </table>
       </p>
+
       <p>
         <h3>Sort by array:</h3>
         <div id='multi-select-3' class="auto-size">
@@ -85,6 +86,35 @@
           </div>
         </div>
       </p>
+
+      <p>
+        <h3>"All" buttons:</h3>
+        <table id='multi-select-4' class="manual-size">
+          <tr>
+            <td>
+              <select multiple='multiple'>
+                <option>omg</option>
+                <option>no</option>
+                <option>wai</option>
+              </select>
+            </td>
+            <td>
+              <select multiple='multiple' name='pants'></select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="button" value="Add &raquo;"/>
+              <input type="button" value="Add all &raquo;"/>
+            </td>
+            </td>
+            <td>
+              <input type="button" value="&laquo; Remove"/>
+              <input type="button" value="&laquo; Remove all"/>
+            </td>
+          </tr>
+        </table>
+      </p>
       <p>
         <input type="submit" value="Submit" />
       </p>
@@ -101,6 +131,7 @@
         $('#multi-select-1').multiselect({autoSize: true});
         $('#multi-select-2').multiselect();
         $('#multi-select-3').multiselect({autoSize: true, sort: ['uno', 'dos', 'tres']});
+        $('#multi-select-4').multiselect();
 
         /* show results on submit */
         doc = $(document); wnd = $(window); $('form').submit(function(e) { results = $('#results'); list = results.find('ul').html(''); $.each($(this).serializeArray(), function() { list.append("<li>"+this.name+": "+this.value+"</li>"); }); results.css({ top: doc.scrollTop() + ((wnd.height() - results.height()) / 2), left: doc.scrollLeft() + ((wnd.width() - results.width()) / 2) }); results.fadeIn('fast', function() { setTimeout('results.fadeOut("fast");', 5000); }); return false; })
