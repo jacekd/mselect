@@ -74,8 +74,6 @@
         var right_button     = buttons.eq(1);
         var right_all_button = null;
       }
-      console.log(left_all_button);
-      console.log(right_all_button);
 
       // hook stuff up
       var moveSelectedRight = function() {
